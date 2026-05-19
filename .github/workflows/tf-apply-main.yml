@@ -34,6 +34,12 @@ jobs:
       run: |
         echo "ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> $GITHUB_OUTPUT
 
+    - name: Debug AWS Credentials
+      run: |
+        echo "AWS_ACCESS_KEY_ID length: ${#AWS_ACCESS_KEY_ID}"
+        echo "AWS_SECRET_ACCESS_KEY length: ${#AWS_SECRET_ACCESS_KEY}"
+        echo "AWS_REGION: $AWS_REGION"
+
     - name: Create S3 bucket for Terraform state
       run: |
         BUCKET_NAME="aigoat-state-files-${{ steps.account.outputs.ACCOUNT_ID }}"
